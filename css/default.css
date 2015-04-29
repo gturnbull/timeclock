@@ -105,6 +105,20 @@
     border-width: 0px 0px 1px 0px;
 }
 
+.header_icontext {
+	color: #000000;
+	font-family: Tahoma;
+	font-size: 10pt;
+	text-decoration: none;
+}
+
+a.header_icontext:link, a.header_icontext:visited, a.header_icontext:hover, a.header_icontext:active {
+	color: #000000;
+	font-family: Tahoma;
+	font-size: 10pt;
+	text-decoration: none;
+}
+
 .left_main {
     background-color: #FCFCFF;
     border: solid #cdc0b0;

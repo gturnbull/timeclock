@@ -55,33 +55,26 @@ echo "  <tr>\n";
 if (isset($_SESSION['valid_reports_user'])) {
     $logged_in_user = $_SESSION['valid_reports_user'];
     echo "    <td align=left valign=middle width=10 style='padding-left:12px;'><img src='../images/icons/user_suit.png' border='0'></td>\n";
-    echo "    <td align=left valign=middle style='color:#000000;font-family:Tahoma;font-size:10pt;padding-left:8px;'>logged in as:
-$logged_in_user</td>\n";
+    echo "    <td align=left valign=middle class=header_icontext style='padding-left:8px;'>logged in as:$logged_in_user</td>\n";
 }
 echo "    <td align=right valign=middle><img src='../images/icons/house.png' border='0'>&nbsp;&nbsp;</td>\n";
-echo "    <td align=right valign=middle width=10><a href='../index.php' style='color:#000000;font-family:Tahoma;font-size:10pt;text-decoration:none;'>
-        Home&nbsp;&nbsp;</a></td>\n";
+echo "    <td align=right valign=middle width=10><a href='../index.php' class=header_icontext>Home&nbsp;&nbsp;</a></td>\n";
 echo "    <td align=right valign=middle width=23><img src='../images/icons/bricks.png' border='0'>&nbsp;&nbsp;</td>\n";
-echo "    <td align=right valign=middle width=10><a href='../login.php' style='color:#000000;font-family:Tahoma;font-size:10pt;text-decoration:none;'>
-        Administration&nbsp;&nbsp;</a></td>\n";
+echo "    <td align=right valign=middle width=10><a href='../login.php' class=header_icontext>Administration&nbsp;&nbsp;</a></td>\n";
 echo "    <td align=right valign=middle width=23><img src='../images/icons/report.png' border='0'>&nbsp;&nbsp;</td>\n";
 
 if ($use_reports_password == "yes") {
-    echo "    <td align=right valign=middle width=10><a href='../login_reports.php' style='color:#000000;font-family:Tahoma;font-size:10pt;text-decoration:none;'>
-        Reports&nbsp;&nbsp;</a></td>\n";
+    echo "    <td align=right valign=middle width=10><a href='../login_reports.php' class=header_icontext>Reports&nbsp;&nbsp;</a></td>\n";
 } elseif ($use_reports_password == "no") {
-    echo "    <td align=right valign=middle width=10><a href='index.php' style='color:#000000;font-family:Tahoma;font-size:10pt;text-decoration:none;'>
-        Reports&nbsp;&nbsp;</a></td>\n";
+    echo "    <td align=right valign=middle width=10><a href='index.php' class=header_icontext>Reports&nbsp;&nbsp;</a></td>\n";
 }
 
 echo "    <td align=right valign=middle width=23><img src='../images/icons/time.png' border='0'>&nbsp;&nbsp;</td>\n";
-echo "    <td align=right valign=middle width=10><a href='../punchclock/menu.php' style='color:#000000;font-family:Tahoma;font-size:10pt;
-        text-decoration:none;'>Punchclock&nbsp;&nbsp;</a></td>\n";
+echo "    <td align=right valign=middle width=10><a href='../punchclock/menu.php' class=header_icontext>Punchclock&nbsp;&nbsp;</a></td>\n";
 
 if ((isset($_SESSION['valid_user'])) || (isset($_SESSION['valid_reports_user'])) || (isset($_SESSION['time_admin_valid_user']))) {
     echo "    <td align=right valign=middle width=20><img src='../images/icons/arrow_rotate_clockwise.png' border='0'>&nbsp;</td>\n";
-    echo "    <td align=right valign=middle width=10><a href='../logout.php' style='color:#000000;font-family:Tahoma;font-size:10pt;text-decoration:none;'>
-        Logout&nbsp;&nbsp;</a></td>\n";
+    echo "    <td align=right valign=middle width=10><a href='../logout.php' class=header_icontext>Logout&nbsp;&nbsp;</a></td>\n";
 }
 
 echo "</tr></table>\n";
