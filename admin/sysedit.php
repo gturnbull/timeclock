@@ -161,7 +161,23 @@ if ($request == 'GET') {
         }
     }
 
-    if (strlen($color1) > 7) {
+    if ($time_difference == "0") {
+		$time_difference = intval($time_difference);
+	} else {
+		$tmp_time_difference = intval($time_difference);
+		if (!empty($tmp_time_difference)) {
+			$time_difference = $tmp_time_difference;
+		}
+	}
+
+	if (strlen($time_difference) > 10) {
+		echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
+		echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
+                  <td class=table_rows_red height=25><b>time_difference</b> is longer than the allowed 10 characters.</td></tr>\n";
+		echo "            </table>\n";
+		$evil = "1";
+		echo "            <br />\n";
+	}elseif (strlen($color1) > 7) {
         echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
         echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
                   <td class=table_rows_red height=25><b>color1</b> is not a valid color.</td></tr>\n";
@@ -254,6 +270,13 @@ if ($request == 'GET') {
             $evil = "1";
             echo "            <br />\n";
         }
+	}elseif (!is_integer($time_difference)) {
+		echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
+		echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
+                  <td class=table_rows_red height=25><b>time_difference</b> must be an integer.</td></tr>\n";
+		echo "            </table>\n";
+		$evil = "1";
+		echo "            <br />\n";
     } elseif (!isset($evil)) {
         for ($x = 0; $x < count($links); $x++) {
             $links[$x] = addslashes($links[$x]);
@@ -896,6 +919,15 @@ if ($request == 'GET') {
                         Otherwise setting this option to \"yes\" will display the punch-in/out times according to the timezone of the web server through date(\"Z\"). 
                         Default is \"<b>no</b>\".
                  </td></tr>\n";
+	$row_count++; 
+	$row_color = ($row_count % 2) ? $color2 : $color1;
+	echo "              <tr><td bgcolor='$row_color' class=table_rows width=10% align=left style='padding-left:4px;' valign=top>time_difference:</td>
+                  <td bgcolor='$row_color' class=table_rows width=10% align=left valign=top><input type=\"text\" size=\"10\" maxlength=\"10\"
+                      name=\"time_difference\" value=\"$time_difference\" /></td>
+                  <td bgcolor='$row_color' class=table_rows width=80% align=left style='padding-left:10px;' valign=top>To display punch-in/out details 
+                      correctly throughout this application, this option needs to be set to the number of minutes that your clock rolls 
+                      forward/backward whenever Daylight Savings Time, Summer Time, etc, begins/ends. Default is <b>60</b>.
+                 </td></tr>\n";
     $row_count = '0';
     $row_color = ($row_count % 2) ? $color2 : $color1;
     echo "              <tr><td nowrap style='border:solid #888888;border-width:0px 0px 1px 0px;' colspan=3>&nbsp;</td></tr>\n";
@@ -1254,6 +1286,7 @@ if ($request == 'GET') {
     @$post_timefmt = $_POST['timefmt'];
     $post_use_client_tz = $_POST['use_client_tz'];
     $post_use_server_tz = $_POST['use_server_tz'];
+	$post_time_difference = $_POST['time_difference'];
     $post_color1 = $_POST['color1'];
     $post_color2 = $_POST['color2'];
     $post_office_name = $_POST['office_name'];
@@ -1276,6 +1309,15 @@ if ($request == 'GET') {
             $post_refresh = $tmp_refresh;
         }
     }
+	
+	if ($post_time_difference == "0") {
+		$post_time_difference = intval($post_time_difference);
+	} else {
+		$abc_time_difference = intval($post_time_difference);
+		if (!empty($abc_time_difference)) {
+			$post_time_difference = $abc_time_difference;
+		}
+	}
 
     $post_email = $_POST['email'];
     $post_date_link = addslashes($_POST['date_link']);
@@ -1436,6 +1478,12 @@ if ($request == 'GET') {
                   <td class=table_rows_red height=25><b>use_server_tz</b> does not equal \"yes\" or \"no\".</td></tr>\n";
         echo "            </table>\n";
         $evil_post = "1";
+	}elseif (!is_integer($post_time_difference)) {
+		echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
+		echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
+                  <td class=table_rows_red height=25><b>time_difference</b> must be an integer.</td></tr>\n";
+		echo "            </table>\n";
+		$evil_post = "1";
     } elseif (($post_use_server_tz == '1') && ($post_use_client_tz == '1')) {
         echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
         echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
@@ -2230,6 +2278,15 @@ if ($request == 'GET') {
         echo "                  <td bgcolor='$row_color' class=table_rows width=80% align=left style='padding-left:10px;' valign=top>Setting this option to
                       \"yes\" will display the punch-in/out times according to the timezone of the web server. Setting this option to \"no\" AND setting 
                       'use_client_tz' to \"no\" will display the punch-in/out times in GMT. Default is \"<b>yes</b>\".
+                 </td></tr>\n";
+		$row_count++; 
+		$row_color = ($row_count % 2) ? $color2 : $color1;
+		echo "              <tr><td bgcolor='$row_color' class=table_rows width=10% align=left style='padding-left:4px;' valign=top>time_difference:</td>
+                  <td bgcolor='$row_color' class=table_rows width=10% align=left valign=top><input type=\"text\" size=\"10\" maxlength=\"10\"
+                      name=\"time_difference\" value=\"$post_time_difference\" /></td>
+                  <td bgcolor='$row_color' class=table_rows width=80% align=left style='padding-left:10px;' valign=top>To display punch-in/out details
+                      correctly throughout this application, this option needs to be set to the number of minutes that your clock rolls
+                      forward/backward whenever Daylight Savings Time, Summer Time, etc, begins/ends. Default is <b>60</b>.
                  </td></tr>\n";
         $row_count = '0';
         $row_color = ($row_count % 2) ? $color2 : $color1;
@@ -3096,6 +3153,14 @@ $use_client_tz = "' . $post_use_client_tz . '";
 
 $use_server_tz = "' . $post_use_server_tz . '";
 
+/* Daylight Savings Time, Summer Time, etc, are all inherently evil in every way. But, DST is
+   something that has to be dealt with since it is not going to go away any time soon. So, in
+   order for punch times to display correctly throughout this application, you will need to
+   set this option to the number of minutes that your clock rolls forward/backward whenever
+   DST begins/ends. Default is "60". */
+
+$time_difference = "'. $post_time_difference .'";
+
 
 /* --- WEATHER INFO ---  */
 
@@ -3140,6 +3205,7 @@ $title = "$app_name $app_version";
 /* --- DO NOT CHANGE ANYTHING BELOW THIS LINE!!! --- */
 
 
+$dst = date("I");
 $dbversion = "' . $post_dbversion . '";
 ?>';
 

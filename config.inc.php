@@ -322,6 +322,14 @@ $use_client_tz = "no";
 
 $use_server_tz = "no";
 
+/* Daylight Savings Time, Summer Time, etc, are all inherently evil in every way. But, DST is
+   something that has to be dealt with since it is not going to go away any time soon. So, in
+   order for punch times to display correctly throughout this application, you will need to
+   set this option to the number of minutes that your clock rolls forward/backward whenever
+   DST begins/ends. Default is "60". */
+
+$time_difference = "60";
+
 
 /* --- WEATHER INFO ---  */
 
@@ -370,5 +378,6 @@ $title = "$app_name $app_version";
 
 /* --- DO NOT CHANGE ANYTHING BELOW THIS LINE!!! --- */
 
+$dst = date("I");
 $dbversion = "1.4";
 ?>
